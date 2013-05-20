@@ -1,0 +1,16 @@
+REQUIREMENTS:
+libcutil, https://code.google.com/p/libcutil/
+pkg-config for X11 glut
+
+GLUTIL is for wrappers for OpenGL.
+
+To modify install path and other local settings, Makefile.usdef should be edited.
+
+To build,
+    make
+    sudo make install
+
+After installation, try examples.
+    cd example
+    make
+    ./ex?.exe

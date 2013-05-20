@@ -1,0 +1,79 @@
+#
+# $Id$
+# Copyright (c) 2013 Cota Nabeshima <cota@upard.org>
+# This file is subject to the MIT license available at,
+# http://opensource.org/licenses/mit-license.php
+#
+
+# target
+LIBNAME=glutil
+
+MAJOR_VERSION=1.0
+MINOR_VERSION=0
+
+# target
+LIBDISTDIR=../lib
+
+
+# header files
+HEADERS=../include/*.h ../include/*.ipp \
+
+# object files
+OBJS=\
+	GLWidget.o \
+	GLCamera.o \
+	GLCameraViewer.o \
+	\
+	GLShape.o \
+	GLGroup.o \
+	\
+	GLLight.o \
+	GLColor.o \
+	GLTexture.o \
+	GLShader.o \
+	\
+	GLWorld.o \
+	GLMirror.o \
+	\
+	GL2DText.o \
+	GLSphereShape.o \
+	GLBoxShape.o \
+	GLCylinderShape.o \
+	GLCapsuleShape.o \
+	GLTriangleMeshShape.o \
+	GLPlaneShape.o \
+	GLLineShape.o \
+	GLArrowShape.o \
+
+ifneq (${shell if pkg-config --exists x11 glut; then echo DUMMY; fi},)
+XGL_CFLAGS=`pkg-config --cflags x11 glut`
+XGL_LDFLAGS=`pkg-config --libs x11 glut`
+endif
+
+# switch by OS
+OS=${shell uname}
+
+ifeq ($(OS),Linux) # Linux
+PTHREAD_LDFLAGS=-lpthread
+endif
+
+
+CFLAGS=-I../include $(USR_CFLAGS) $(XGL_CFLAGS)
+LDFLAGS=$(USR_LDFLAGS) $(XGL_LDFLAGS) $(PTHREAD_LDFLAGS) 
+
+
+ifeq ($(OS),Linux) # Linux
+LIBTARGET=$(LIBDISTDIR)/lib$(LIBNAME).so.$(MAJOR_VERSION).$(MINOR_VERSION)
+SHAREDFLAGS=-shared -Wl,-soname=lib$(LIBNAME).so.$(MAJOR_VERSION)
+LD_LIBRARY_PATH=$(INSTALLPATH)/lib
+INSTALL_COMMAND=( cd $(INSTALLPATH)/lib; ln -s lib$(LIBNAME).so.$(MAJOR_VERSION).$(MINOR_VERSION) lib$(LIBNAME).so.$(MAJOR_VERSION); ln -s lib$(LIBNAME).so.$(MAJOR_VERSION) lib$(LIBNAME).so )
+UNINSTALL_COMMAND=( cd $(INSTALLPATH)/lib; rm -f lib$(LIBNAME).so.$(MAJOR_VERSION).$(MINOR_VERSION) lib$(LIBNAME).so.$(MAJOR_VERSION) lib$(LIBNAME).so )
+endif
+
+ifeq ($(OS),Darwin) # Darwin
+LIBTARGET=$(LIBDISTDIR)/lib$(LIBNAME).$(MAJOR_VERSION).$(MINOR_VERSION).dylib
+SHAREDFLAGS=-dynamiclib -install_name lib$(LIBNAME).$(MAJOR_VERSION).$(MINOR_VERSION).dylib -compatibility_version $(MAJOR_VERSION) -current_version $(MAJOR_VERSION).$(MINOR_VERSION)
+DYLD_LIBRARY_PATH=$(INSTALLPATH)/lib
+INSTALL_COMMAND=( cd $(INSTALLPATH)/lib; ln -s lib$(LIBNAME).$(MAJOR_VERSION).$(MINOR_VERSION).dylib lib$(LIBNAME).$(MAJOR_VERSION).dylib; ln -s lib$(LIBNAME).$(MAJOR_VERSION).dylib lib$(LIBNAME).dylib )
+UNINSTALL_COMMAND=( cd $(INSTALLPATH)/lib; rm -f lib$(LIBNAME).$(MAJOR_VERSION).$(MINOR_VERSION).dylib lib$(LIBNAME).$(MAJOR_VERSION).dylib lib$(LIBNAME).dylib )
+endif
