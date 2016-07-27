@@ -13,20 +13,18 @@
 #include "GLColor.h"
 
 namespace glutil {
-  
-class GL2DText {
 
-private:
+class GL2DText {
+ private:
   GLColor color;
   std::string text;
-  
-public:
-  void setColor( const GLColor &color );
-  void setText( const std::string &text );
-  
-  void draw( int x, int y ) const;
-};
 
-}
+ public:
+  void setColor(const GLColor &color);
+  void setText(const std::string &text);
+
+  void draw(int x, int y) const;
+};
+}  // namespace glutil
 
 #endif

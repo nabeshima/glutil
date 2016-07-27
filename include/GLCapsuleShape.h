@@ -12,24 +12,21 @@
 
 namespace glutil {
 
-class GLCapsuleShape
-  : public GLShape {
-
-private:
+class GLCapsuleShape : public GLShape {
+ private:
   double radius;
   double length;
-  
-protected:
+
+ protected:
   virtual void drawSolid() const;
   virtual void drawWire() const;
-  
-public:
+
+ public:
   GLCapsuleShape();
   virtual ~GLCapsuleShape() {}
-  
-  void setParams( double radius, double length );
-};
 
-}
+  void setParams(double radius, double length);
+};
+}  // namespace glutil
 
 #endif

@@ -7,14 +7,15 @@
 
 #include "GLWorld.h"
 
+#include <GL/gl.h>
+
 #include <iostream>
+#include <list>
 
 #include "GLLight.h"
-#include "GLTexture.h"
 #include "GLShader.h"
 #include "GLShape.h"
-
-#include <GL/gl.h>
+#include "GLTexture.h"
 
 using namespace std;
 using namespace glutil;
@@ -36,184 +37,157 @@ using namespace glutil;
 // }
 
 GLWorld::GLWorld() {
-  
-//   //!これが無いと怒られることがあるらしい.
-//   if ( !glutInitFlag ) {
-// #if defined(__APPLE__) && !defined(__FreeBSD__)
-// #else
-//     int dummy = 0;
-//     glutInit( &dummy, NULL );
-// #endif
-//     glutInitFlag = true;
-//   }
+  //   //!これが無いと怒られることがあるらしい.
+  //   if ( !glutInitFlag ) {
+  // #if defined(__APPLE__) && !defined(__FreeBSD__)
+  // #else
+  //     int dummy = 0;
+  //     glutInit( &dummy, NULL );
+  // #endif
+  //     glutInitFlag = true;
+  //   }
 }
 
 //! 環境光などについてinit. 一つのopenglコンテキストで最初に一度行なう.
-void GLWorld::initialize( GLDrawMode drawMode ) const {
-  glEnable( GL_LIGHTING );
-  
-  glDisable( GL_NORMALIZE );
-  
-  list< const GLShader* >::const_iterator
-    sp = shaderList.begin(), 
-    spEnd = shaderList.end();
-  
-  while ( sp != spEnd ) {
+void GLWorld::initialize(GLDrawMode drawMode) const {
+  glEnable(GL_LIGHTING);
+
+  glDisable(GL_NORMALIZE);
+
+  list<const GLShader *>::const_iterator sp = shaderList.begin(),
+                                         spEnd = shaderList.end();
+
+  while (sp != spEnd) {
     (*sp)->initialize();
     ++sp;
   }
-  
-  list< const GLTexture* >::const_iterator
-    tp = textureList.begin(), 
-    tpEnd = textureList.end();
-  
-  while ( tp != tpEnd ) {
+
+  list<const GLTexture *>::const_iterator tp = textureList.begin(),
+                                          tpEnd = textureList.end();
+
+  while (tp != tpEnd) {
     (*tp)->initialize();
     ++tp;
   }
-    
-  list< const GLShape* >::const_iterator
-    lp = shapeList.begin(),
-    lpEnd = shapeList.end();
-  
-  while ( lp != lpEnd ) {
-    (*lp)->initialize( drawMode );
+
+  list<const GLShape *>::const_iterator lp = shapeList.begin(),
+                                        lpEnd = shapeList.end();
+
+  while (lp != lpEnd) {
+    (*lp)->initialize(drawMode);
     ++lp;
   }
 
-  glShadeModel( GL_FLAT );  
+  glShadeModel(GL_FLAT);
 }
 
 void GLWorld::finalize() const {
+  list<const GLShader *>::const_iterator sp = shaderList.begin(),
+                                         spEnd = shaderList.end();
 
-  list< const GLShader* >::const_iterator
-    sp = shaderList.begin(), 
-    spEnd = shaderList.end();
-  
-  while ( sp != spEnd ) {
+  while (sp != spEnd) {
     (*sp)->finalize();
     ++sp;
   }
 
-  list< const GLTexture* >::const_iterator
-    tp = textureList.begin(), 
-    tpEnd = textureList.end();
-  
-  while ( tp != tpEnd ) {
+  list<const GLTexture *>::const_iterator tp = textureList.begin(),
+                                          tpEnd = textureList.end();
+
+  while (tp != tpEnd) {
     (*tp)->finalize();
     ++tp;
   }
-  
-  list< const GLShape* >::const_iterator
-    lp = shapeList.begin(), 
-    lpEnd = shapeList.end();
-  
-  while ( lp != lpEnd ) {
+
+  list<const GLShape *>::const_iterator lp = shapeList.begin(),
+                                        lpEnd = shapeList.end();
+
+  while (lp != lpEnd) {
     (*lp)->finalize();
     ++lp;
   }
 }
 
-void GLWorld::draw( GLDrawMode drawMode ) const {
+void GLWorld::draw(GLDrawMode drawMode) const {
   {
-    list< const GLLight* >::const_iterator
-      p = lightList.begin(), 
-      pEnd = lightList.end();
-    
-    while ( p != pEnd ) {
+    list<const GLLight *>::const_iterator p = lightList.begin(),
+                                          pEnd = lightList.end();
+
+    while (p != pEnd) {
       (*p)->draw();
       ++p;
     }
   }
-  
+
   {
-    list< const GLShape* >::const_iterator
-      lp = shapeList.begin(), 
-      lpEnd = shapeList.end();
-    
-    while ( lp != lpEnd ) {
-      (*lp)->draw( drawMode );
+    list<const GLShape *>::const_iterator lp = shapeList.begin(),
+                                          lpEnd = shapeList.end();
+
+    while (lp != lpEnd) {
+      (*lp)->draw(drawMode);
       ++lp;
     }
   }
 }
 
-void GLWorld::draw( GLDrawMode drawMode, const GLShape *neglect ) const {
+void GLWorld::draw(GLDrawMode drawMode, const GLShape* neglect) const {
   {
-    list< const GLLight* >::const_iterator
-      p = lightList.begin(), 
-      pEnd = lightList.end();
-    
-    while ( p != pEnd ) {
+    list<const GLLight *>::const_iterator p = lightList.begin(),
+                                          pEnd = lightList.end();
+
+    while (p != pEnd) {
       (*p)->draw();
       ++p;
     }
   }
-  
+
   {
-    list< const GLShape* >::const_iterator
-      lp = shapeList.begin(), 
-      lpEnd = shapeList.end();
-    
-    while ( lp != lpEnd ) {
-      if ( (*lp) != neglect ) {
-        (*lp)->draw( drawMode );
+    list<const GLShape *>::const_iterator lp = shapeList.begin(),
+                                          lpEnd = shapeList.end();
+
+    while (lp != lpEnd) {
+      if ((*lp) != neglect) {
+        (*lp)->draw(drawMode);
       }
       ++lp;
     }
   }
 }
 
-
 //! 背景色を指定する。
-void GLWorld::setClearColor( const GLColor &skyColor ) {
-  clearColor = skyColor;
-}
+void GLWorld::setClearColor(const GLColor& skyColor) { clearColor = skyColor; }
 
-const GLColor& GLWorld::getClearColor() const {
-  return clearColor;
-}
+const GLColor& GLWorld::getClearColor() const { return clearColor; }
 
 //! 光源を追加する。
-void GLWorld::addLight( const GLLight *light ) {
-  lightList.push_back( light );
-}
+void GLWorld::addLight(const GLLight* light) { lightList.push_back(light); }
 
-void GLWorld::removeLight( const GLLight *light ) {
-  lightList.remove( light );
-}
-
+void GLWorld::removeLight(const GLLight* light) { lightList.remove(light); }
 
 //! この世界で使うシェーダを追加する.
-void GLWorld::addShader( const GLShader *shader ) {
-  shaderList.push_back( shader );
+void GLWorld::addShader(const GLShader* shader) {
+  shaderList.push_back(shader);
 }
 
-void GLWorld::removeShader( const GLShader *shader ) {
-  shaderList.remove( shader );
+void GLWorld::removeShader(const GLShader* shader) {
+  shaderList.remove(shader);
 }
 
 //! この世界で使うテクスチャを追加する.
-void GLWorld::addTexture( const GLTexture *texture ) {
-  textureList.push_back( texture );
+void GLWorld::addTexture(const GLTexture* texture) {
+  textureList.push_back(texture);
 }
 
-void GLWorld::removeTexture( const GLTexture *texture ) {
-  textureList.remove( texture );
+void GLWorld::removeTexture(const GLTexture* texture) {
+  textureList.remove(texture);
 }
 
 //! 3次元オブジェクトを加える。
-void GLWorld::addShape( const GLShape *shape ) {
-  shapeList.push_back( shape );
-}
+void GLWorld::addShape(const GLShape* shape) { shapeList.push_back(shape); }
 
-void GLWorld::removeShape( const GLShape *shape ) {
-  shapeList.remove( shape );
-}
+void GLWorld::removeShape(const GLShape* shape) { shapeList.remove(shape); }
 
 void GLWorld::clearWorld() {
   lightList.clear();
   textureList.clear();
   shapeList.clear();
 }
-

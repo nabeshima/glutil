@@ -1,5 +1,5 @@
 REQUIREMENTS:
-libcutil, https://code.google.com/p/libcutil/
+cutil, https://github.com/nabeshima/cutil
 pkg-config for X11 glut
 
 GLUTIL is for wrappers for OpenGL.

@@ -18,30 +18,25 @@ namespace glutil {
   z軸正方向への矢印.
 */
 
-class GLArrowShape
-  : public GLShape {
-
-private:
+class GLArrowShape : public GLShape {
+ private:
   double slices;
   double trunk_radius;
   double trunk_length;
   double head_radius;
   double head_length;
 
-protected:
+ protected:
   virtual void drawSolid() const;
   virtual void drawWire() const;
-  
-public:
+
+ public:
   GLArrowShape();
   virtual ~GLArrowShape();
 
-  void setParams( double trunk_radius,
-		  double trunk_length,
-		  double head_radius,
-		  double head_length );
+  void setParams(double trunk_radius, double trunk_length, double head_radius,
+                 double head_length);
 };
-
-}
+}  // namespace glutil
 
 #endif

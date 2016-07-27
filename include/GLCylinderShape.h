@@ -11,25 +11,23 @@
 #include "GLShape.h"
 
 namespace glutil {
-  
-class GLCylinderShape
-  : public GLShape {
 
-private:
+class GLCylinderShape : public GLShape {
+ private:
   double radius;
   double length;
-  
-protected:
+
+ protected:
   virtual void drawSolid() const;
   virtual void drawWire() const;
-  
-public:
+
+ public:
   GLCylinderShape();
-  virtual ~GLCylinderShape() {};
-  
-  void setParams( double radius, double length );
+  virtual ~GLCylinderShape() {}
+
+  void setParams(double radius, double length);
 };
 
-}
+}  // namespace glutil
 
 #endif

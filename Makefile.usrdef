@@ -9,5 +9,5 @@ INSTALLPATH=/usr/local
 
 CXX=g++
 
-USR_CFLAGS=-Wall -O3 -g -I/usr/local/include
+USR_CFLAGS=-Wall -O3 -g -I/usr/local/include -Wno-deprecated
 USR_LDFLAGS=-L/opt/X11/lib/ -lX11 -lGL -lGLU -lglut

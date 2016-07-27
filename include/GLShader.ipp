@@ -7,21 +7,13 @@
 
 namespace glutil {
 
-inline
-GLShader::GLShader() 
-  : program( 0 ) {}
+inline GLShader::GLShader() : program(0) {}
 
-inline
-GLShader::GLShader( const std::string &vert_filename,
-                    const std::string &frag_filename ) 
-  : program( 0 ) {
-  
-  load( vert_filename, frag_filename );
+inline GLShader::GLShader(const std::string &vert_filename,
+                          const std::string &frag_filename)
+    : program(0) {
+  load(vert_filename, frag_filename);
 }
 
-inline
-uint32_t GLShader::getResourceID() const {
-  return program;
-}
-
+inline uint32_t GLShader::getResourceID() const { return program; }
 }

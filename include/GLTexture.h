@@ -14,33 +14,32 @@
 namespace glutil {
 
 class GLTexture {
-private:
+ private:
   int width;
   int height;
   uint8_t *data;
-  
+
   mutable uint32_t name;
-  
-public:
-  explicit GLTexture();
-  explicit GLTexture( const std::string &filename );
+
+ public:
+  GLTexture();
+  explicit GLTexture(const std::string &filename);
   ~GLTexture();
-  
+
   //! テクスチャは一つのコンテキストで一回initializeする必要がある.
   void initialize() const;
   //! 使い追えたら,一つのコンテキストにつき一回finalizeする必要がある.
   void finalize() const;
-  
-  bool load( const std::string &filename );
 
-  const uint8_t* getData() const;
+  bool load(const std::string &filename);
+
+  const uint8_t *getData() const;
   int getWidth() const;
   int getHeight() const;
 
   uint32_t getResourceID() const;
 };
-
-}
+}  // namespace glutil
 
 #include "GLTexture.ipp"
 

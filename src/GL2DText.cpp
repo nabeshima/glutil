@@ -7,29 +7,29 @@
 
 #include "GL2DText.h"
 
-#include <cstring>
-
+#if defined(__APPLE__) && !defined(__FreeBSD__)
+#include <GLUT/glut.h>
+#elif
 #include <GL/glut.h>
+#endif
+
+#include <string>
 
 using namespace std;
 using namespace glutil;
 
-void GL2DText::setColor( const GLColor &color ) {
-  this->color = color;
-}
+void GL2DText::setColor(const GLColor &color) { this->color = color; }
 
-void GL2DText::setText( const string &text ) {
-  this->text = text;
-}
+void GL2DText::setText(const string &text) { this->text = text; }
 
-void GL2DText::draw( int x, int y ) const {
+void GL2DText::draw(int x, int y) const {
   color.colorFunc();
-  
-  glRasterPos2d( x, y );		
-  
+
+  glRasterPos2d(x, y);
+
   int len = text.size();
   const char *t = text.c_str();
-  for ( int i = 0; i < len; ++i ) {
-    glutBitmapCharacter( GLUT_BITMAP_8_BY_13, t[ i ] );
+  for (int i = 0; i < len; ++i) {
+    glutBitmapCharacter(GLUT_BITMAP_8_BY_13, t[i]);
   }
 }

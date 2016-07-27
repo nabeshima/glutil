@@ -7,47 +7,24 @@
 
 namespace glutil {
 
-inline
-GLTexture::GLTexture()
-  : width( 0 ), 
-    height( 0 ), 
-    data( NULL ),
-    name( 0 ) {}
+inline GLTexture::GLTexture() : width(0), height(0), data(NULL), name(0) {}
 
-inline
-GLTexture::GLTexture( const std::string &filename )
-  : width( 0 ), 
-    height( 0 ), 
-    data( NULL ),
-    name( 0 ) {
-  load( filename );
+inline GLTexture::GLTexture(const std::string& filename)
+    : width(0), height(0), data(NULL), name(0) {
+  load(filename);
 }
 
-inline
-GLTexture::~GLTexture() {
-  if ( data != NULL ) {
+inline GLTexture::~GLTexture() {
+  if (data != NULL) {
     delete[] data;
   }
 }
 
-inline
-int GLTexture::getWidth() const { 
-  return width;
-}
+inline int GLTexture::getWidth() const { return width; }
 
-inline
-int GLTexture::getHeight() const { 
-  return height; 
-}
+inline int GLTexture::getHeight() const { return height; }
 
-inline
-const uint8_t* GLTexture::getData() const { 
-  return data; 
-}
+inline const uint8_t* GLTexture::getData() const { return data; }
 
-inline
-uint32_t GLTexture::getResourceID() const {
-  return name;
-}
-
+inline uint32_t GLTexture::getResourceID() const { return name; }
 }

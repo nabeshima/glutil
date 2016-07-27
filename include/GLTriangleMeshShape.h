@@ -14,33 +14,30 @@
 
 namespace glutil {
 
-class GLTriangleMeshShape
-  : public GLShape {
-  
-private:
+class GLTriangleMeshShape : public GLShape {
+ private:
   bool smoothFlag;
-  
-  std::vector< cotave::ColumnVector3 > vertices;
-  std::vector< cotave::IntVector3 > indices;
-  std::vector< cotave::ColumnVector3 > normals;
-  
-protected:
+
+  std::vector<cotave::ColumnVector3> vertices;
+  std::vector<cotave::IntVector3> indices;
+  std::vector<cotave::ColumnVector3> normals;
+
+ protected:
   virtual void drawSolid() const;
   virtual void drawWire() const;
 
-public:
+ public:
   GLTriangleMeshShape();
-  
-  void setTriangles( const std::vector< cotave::ColumnVector3 > &vertices,
-                     const std::vector< cotave::IntVector3 > &indices );
-  std::vector< cotave::ColumnVector3 >& getVertices();
-  const std::vector< cotave::ColumnVector3 >& getVertices() const;
-  const std::vector< cotave::IntVector3 >& getIndices() const;
-  void clearTriangles();
-  
-  void setSmooth( bool on );
-};
 
-}
+  void setTriangles(const std::vector<cotave::ColumnVector3>& vertices,
+                    const std::vector<cotave::IntVector3>& indices);
+  std::vector<cotave::ColumnVector3>& getVertices();
+  const std::vector<cotave::ColumnVector3>& getVertices() const;
+  const std::vector<cotave::IntVector3>& getIndices() const;
+  void clearTriangles();
+
+  void setSmooth(bool on);
+};
+}  // namespace glutil
 
 #endif

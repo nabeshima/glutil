@@ -12,25 +12,22 @@
 
 namespace glutil {
 
-class GLBoxShape
-  : public GLShape {
-
-private:
+class GLBoxShape : public GLShape {
+ private:
   double lx;
   double ly;
   double lz;
-  
-protected:
+
+ protected:
   virtual void drawSolid() const;
   virtual void drawWire() const;
-    
-public:
+
+ public:
   GLBoxShape();
-  virtual ~GLBoxShape() {};
+  virtual ~GLBoxShape() {}
 
-  void setLengths( double lx, double ly, double lz );
+  void setLengths(double lx, double ly, double lz);
 };
-
-}
+}  // namespace glutil
 
 #endif

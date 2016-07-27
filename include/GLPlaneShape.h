@@ -14,32 +14,30 @@
 
 namespace glutil {
 
-class GLPlaneShape
-  : public GLShape {
-  
-private:
+class GLPlaneShape : public GLShape {
+ private:
   cotave::ColumnVector3 normal;
   cotave::ColumnVector3 *point;
-  cotave::ColumnVector3 cornersPoint[ 4 ];
+  cotave::ColumnVector3 cornersPoint[4];
 
   double textureScale;
   double size;
   int num;
-  
-private:
+
+ private:
   virtual void drawSolid() const;
   virtual void drawWire() const;
-        
-public:
+
+ public:
   GLPlaneShape();
   virtual ~GLPlaneShape();
 
   // ax + by + cz = d
-  void setParams( double a, double b, double c, double d, 
-		  double size, int num, const cotave::ColumnVector3 &upward );
-  void setTexture( const GLTexture *texture, double textureScale );
+  void setParams(double a, double b, double c, double d, double size, int num,
+                 const cotave::ColumnVector3 &upward);
+  void setTexture(const GLTexture *texture, double textureScale);
 };
 
-}
+}  // namespace glutil
 
 #endif

@@ -14,36 +14,34 @@
 
 namespace glutil {
 
-class GLCameraViewer
-  : public GLCamera {
-
-private:
+class GLCameraViewer : public GLCamera {
+ private:
   int mouseX;
   int mouseY;
   int mouseButton;
   bool mousePressedButNotMoved;
   bool shiftKeyPressed;
-  
+
   double distanceEye;
   cotave::ColumnVector3 screenX;
   cotave::ColumnVector3 screenY;
-  
-private:
+
+ private:
   void updateVisualAxis();
 
-protected:
-  virtual void mouseMoveEvent( int x, int y );
-  virtual void mousePressEvent( int button, int x, int y );
-  virtual void mouseReleaseEvent( int button, int x, int y );
+ protected:
+  virtual void mouseMoveEvent(int x, int y);
+  virtual void mousePressEvent(int button, int x, int y);
+  virtual void mouseReleaseEvent(int button, int x, int y);
 
-  virtual void keyPressEvent( KeySym keysym );
-  virtual void keyReleaseEvent( KeySym keysym );
-  
-public:
+  virtual void keyPressEvent(KeySym keysym);
+  virtual void keyReleaseEvent(KeySym keysym);
+
+ public:
   GLCameraViewer();
-  virtual ~GLCameraViewer(){}
+  virtual ~GLCameraViewer() {}
 };
 
-}
+}  // namespace glutil
 
 #endif

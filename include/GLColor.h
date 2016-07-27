@@ -14,18 +14,18 @@ class GLColor {
   friend class GL2DText;
   friend class GLCamera;
   friend class GLMirror;
-  
-private:  
-  float data[ 4 ]; // r, g, b, a
-  
+
+ private:
+  float data[4];  // r, g, b, a
+
   void clearFunc() const;
   void colorFunc() const;
-  
-public:
+
+ public:
   GLColor();
-  GLColor( float r, float g, float b, float a = 1.0 );
-  
-  void set( float r, float g, float b, float a = 1.0 );
+  GLColor(float r, float g, float b, float a = 1.0);
+
+  void set(float r, float g, float b, float a = 1.0);
 
   const float* getData() const;
   float getRed() const;
@@ -34,7 +34,7 @@ public:
   float getAlpha() const;
 };
 
-}
+}  // namespace glutil
 
 #include "GLColor.ipp"
 

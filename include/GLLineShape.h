@@ -14,33 +14,31 @@
 
 namespace glutil {
 
-class GLLineShape
-  : public GLShape {
-
-private:
+class GLLineShape : public GLShape {
+ private:
   bool smoothFlag;
-  
+
   cotave::ColumnVector3 a;
   cotave::ColumnVector3 b;
   double width;
-  
+
   void drawLine() const;
 
-protected:
+ protected:
   virtual void drawSolid() const;
   virtual void drawWire() const;
-  
-public:
+
+ public:
   GLLineShape();
   virtual ~GLLineShape();
-    
-  void setSegment( const cotave::ColumnVector3 &a, 
-                   const cotave::ColumnVector3 &b );
 
-  void setLineSmooth( bool on );
-  void setLineWidth( double width );
+  void setSegment(const cotave::ColumnVector3 &a,
+                  const cotave::ColumnVector3 &b);
+
+  void setLineSmooth(bool on);
+  void setLineWidth(double width);
 };
 
-}
+}  // namespace glutil
 
 #endif

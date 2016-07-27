@@ -11,26 +11,21 @@
 #include "GLShape.h"
 
 namespace glutil {
-    
-class GLSphereShape
-  : public GLShape {
-  
-private:
+
+class GLSphereShape : public GLShape {
+ private:
   double radius;
-  int slices;
-  int stacks;
-  
-protected:
+
+ protected:
   virtual void drawSolid() const;
   virtual void drawWire() const;
 
-public:
+ public:
   GLSphereShape();
   virtual ~GLSphereShape();
-  
-  void setRadius( double radius );
+
+  void setRadius(double radius);
 };
- 
-}
+}  // namespace glutil
 
 #endif

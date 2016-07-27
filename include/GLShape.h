@@ -12,8 +12,8 @@
 
 #include <cutil/Kinematics.h>
 
-#include "GLDrawMode.h"
 #include "GLColor.h"
+#include "GLDrawMode.h"
 
 namespace glutil {
 
@@ -25,14 +25,12 @@ class GLShader;
   \brief OpenGLで扱う１つの３次元形状の物体のインターフェース
 */
 
-
-class GLShape {  
-  
-private:
+class GLShape {
+ private:
   cotave::Quaternion quaternion;
   cotave::ColumnVector3 position;
   double scale;
-  
+
   GLColor ambient;
   GLColor diffuse;
   GLColor specular;
@@ -41,81 +39,80 @@ private:
 
   const GLShader *shader;
   const GLTexture *texture;
-  
-protected:
+
+ protected:
   GLShape();
-  
-  virtual void drawSolid() const {};  // 面を描画
-  virtual void drawWire() const {};   // 枠を描画
-  
-public:
-  virtual ~GLShape() {};
-  
-  //! 一つのコンテキストで一回だけ実行. 
+
+  virtual void drawSolid() const {}  // 面を描画
+  virtual void drawWire() const {}   // 枠を描画
+
+ public:
+  virtual ~GLShape() {}
+
+  //! 一つのコンテキストで一回だけ実行.
   //! GLGroupに変更があった場合は,各コンテキストで再度実行する必要がある.
-  virtual void initialize( GLDrawMode drawMode ) const {};
-  virtual void finalize() const {};
+  virtual void initialize(GLDrawMode drawMode) const {}
+  virtual void finalize() const {}
 
   //! 再描画するたびに実行
-  virtual void draw( GLDrawMode drawMode ) const;
-  
-  // 回転と移動
-  void setQuaternion( const cotave::Quaternion &quat );
-  void setPosition( const cotave::ColumnVector3 &pos );
-  
-  const cotave::Quaternion& getQuaternion() const;
-  const cotave::ColumnVector3& getPosition() const;
+  virtual void draw(GLDrawMode drawMode) const;
 
-  void setScale( double scale = 1.0 );
+  // 回転と移動
+  void setQuaternion(const cotave::Quaternion &quat);
+  void setPosition(const cotave::ColumnVector3 &pos);
+
+  const cotave::Quaternion &getQuaternion() const;
+  const cotave::ColumnVector3 &getPosition() const;
+
+  void setScale(double scale = 1.0);
   double getScale() const;
-  
+
   // 色
-  void setAmbient( const GLColor &rgba );
-  void setDiffuse( const GLColor &rgba );
-  void setSpecular( const GLColor &rgba );
-  void setEmission( const GLColor &rgba );
-  void setShininess( float shininess );
-  
-  const GLColor& getAmbient() const;
-  const GLColor& getDiffuse() const;
-  const GLColor& getSpecular() const;
-  const GLColor& getEmission() const;
+  void setAmbient(const GLColor &rgba);
+  void setDiffuse(const GLColor &rgba);
+  void setSpecular(const GLColor &rgba);
+  void setEmission(const GLColor &rgba);
+  void setShininess(float shininess);
+
+  const GLColor &getAmbient() const;
+  const GLColor &getDiffuse() const;
+  const GLColor &getSpecular() const;
+  const GLColor &getEmission() const;
   float getShininess() const;
 
   virtual bool isBlend() const;
-  
-  // シェーダとテクスチャ
-  void setShader( const GLShader* shader );
-  void setTexture( const GLTexture* texture );
-  
-  const GLShader* getShader() const;
-  const GLTexture* getTexture() const;
-};
 
+  // シェーダとテクスチャ
+  void setShader(const GLShader *shader);
+  void setTexture(const GLTexture *texture);
+
+  const GLShader *getShader() const;
+  const GLTexture *getTexture() const;
+};
 
 // 以下, ヘルパークラス
 
 class BeginEndScope {
-public:
-  BeginEndScope( uint32_t mode );
+ public:
+  explicit BeginEndScope(uint32_t mode);
   ~BeginEndScope();
 };
 
 class EnableDisableScope {
-private:
+ private:
   uint32_t mode;
 
-public:
-  EnableDisableScope( uint32_t mode );
+ public:
+  explicit EnableDisableScope(uint32_t mode);
   ~EnableDisableScope();
 };
 
 class DisableEnableScope {
-private:
+ private:
   uint32_t mode;
 
-public:
-  DisableEnableScope( uint32_t mode );
+ public:
+  explicit DisableEnableScope(uint32_t mode);
   ~DisableEnableScope();
 };
 
@@ -124,57 +121,52 @@ class CoordinateScope {
   friend class GLGroup;
   friend class GLMirror;
 
-private:
-  CoordinateScope( cotave::Quaternion quaternion,
-                   cotave::ColumnVector3 position,
-                   double scale = 1.0 );
+ private:
+  CoordinateScope(cotave::Quaternion quaternion, cotave::ColumnVector3 position,
+                  double scale = 1.0);
   ~CoordinateScope();
 };
 
 class MaterialScope {
   friend class GLShape;
 
-private:
-  MaterialScope( const GLColor & ambient, 
-                 const GLColor & diffuse,
-                 const GLColor & specular,
-                 const GLColor & emission,
-                 float shininess );
+ private:
+  MaterialScope(const GLColor &ambient, const GLColor &diffuse,
+                const GLColor &specular, const GLColor &emission,
+                float shininess);
   ~MaterialScope();
 };
 
 class BlendScope {
   friend class GLShape;
   friend class GLMirror;
-  
-private:
+
+ private:
   const bool isBlend;
 
-  BlendScope( bool isBlend );
+  explicit BlendScope(bool isBlend);
   ~BlendScope();
 };
 
 class TextureShaderScope {
   friend class GLShape;
 
-private:
+ private:
   const GLTexture *texture;
   const GLShader *shader;
 
-  TextureShaderScope( const GLTexture *texture,
-                      const GLShader *shader );
+  TextureShaderScope(const GLTexture *texture, const GLShader *shader);
   ~TextureShaderScope();
 };
 
 class SmoothLineScope {
   friend class GLShape;
 
-private:
+ private:
   SmoothLineScope();
   ~SmoothLineScope();
 };
-
-}
+}  // namespace glutil
 
 #include "GLShape.ipp"
 

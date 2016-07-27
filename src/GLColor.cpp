@@ -10,12 +10,9 @@
 #include <GL/gl.h>
 
 using namespace glutil;
-  
+
 void GLColor::clearFunc() const {
-  glClearColor( getRed(), getGreen(), getBlue(), getAlpha() );
+  glClearColor(getRed(), getGreen(), getBlue(), getAlpha());
 }
 
-void GLColor::colorFunc() const {
-  glColor4fv( data );
-}
-
+void GLColor::colorFunc() const { glColor4fv(data); }

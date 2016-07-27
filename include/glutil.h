@@ -11,27 +11,33 @@
 #include "GLWidget.h"
 
 #include "GLShape.h"
+
 #include "GLGroup.h"
 
 #include "GLColor.h"
+
 #include "GLLight.h"
+
 #include "GLTexture.h"
+
 #include "GLShader.h"
 
 #include "GL2DText.h"
-#include "GLBoxShape.h"
-#include "GLPlaneShape.h"
-#include "GLLineShape.h"
-#include "GLSphereShape.h"
-#include "GLCylinderShape.h"
-#include "GLCapsuleShape.h"
-#include "GLTriangleMeshShape.h"
+
 #include "GLArrowShape.h"
+#include "GLBoxShape.h"
+#include "GLCapsuleShape.h"
+#include "GLCylinderShape.h"
+#include "GLLineShape.h"
+#include "GLPlaneShape.h"
+#include "GLSphereShape.h"
+#include "GLTriangleMeshShape.h"
 
 #include "GLWorld.h"
+
 #include "GLMirror.h"
+
 #include "GLCamera.h"
 #include "GLCameraViewer.h"
 
 #endif
-
